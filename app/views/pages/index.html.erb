@@ -115,6 +115,7 @@
                           
                         <div class="card-body">
                         <% @articles.each do |a| %>
+                             <strong>Created by: </strong><%= a.user.username %><br/>
                            <strong><%= link_to a.title , a%></strong>
                            <p><%=  truncate(a.body) %></p>
 
