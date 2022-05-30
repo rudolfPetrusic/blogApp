@@ -3,10 +3,11 @@ Rails.application.routes.draw do
 
 
   resources :articles do
-     resources :comments
+    resources :comments
   end
 
-
+  resources :contacts
+  
   devise_for :users, :controllers => {registrations: 'registrations'}
   
   root "pages#index"

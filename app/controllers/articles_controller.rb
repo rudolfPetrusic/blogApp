@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
+  
   before_action :set_article, only: %i[ show edit update destroy ]
+  
   before_action :authenticate_user!, except: %i[show index]
+  before_action :ensure_user, only: [:edit, :update, :destroy]
+
   # GET /articles or /articles.json
   def index
     @articles = Article.all
@@ -8,6 +12,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
+   
   end
 
   # GET /articles/new
@@ -49,6 +54,7 @@ class ArticlesController < ApplicationController
 
   # DELETE /articles/1 or /articles/1.json
   def destroy
+    @article = Article.find(params[:id])
     @article.destroy
 
     respond_to do |format|
@@ -67,4 +73,14 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :body)
     end
+
+
+    # Only allow edit and delete article if is current user
+    def ensure_user
+      @articles = current_user.articles
+      @article = @articles.find_by(id: params[:id])
+      redirect_to new_article_path unless @article
+    end
+
+
 end

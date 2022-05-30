@@ -1,0 +1,26 @@
+  <!-- Comments section-->
+  <div class="comment-<%= comment.id %>"> 
+                    <section class="mb-2">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <!-- Single comment-->
+                                <div class="container">
+                                    <div class="ms-3">
+                                        <div class="fw-bold"><%=comment.user.try(:username) %> | <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank?%></div>
+                                        
+                                                <%= comment.body %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    
+
+    </div>
+    
+    <%= link_to "Edit",edit_article_comment_path(@article, comment) unless comment.new_record?%>
+ 
+
+<%= button_to "Delete",  [comment.article, comment], method: :delete, data:{ confirm: "Are you sure?"}%>   
